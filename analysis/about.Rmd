@@ -1,5 +1,5 @@
 ---
-title: "About"
+title: "Acknowledgments and Funding"
 output:
   workflowr::wflow_html:
     toc: false
@@ -7,4 +7,11 @@ editor_options:
   chunk_output_type: console
 ---
 
-Describe your project.
+# Acknowledgements
+
+We are grateful to the [Next Generation Cassava Breeding team](https://www.nextgencassava.org) and in particular the IITA cassava breeding team for their interest in and support of this work. This project would not have been possible without their efforts. We also thank the [PhenoApps team](www.phenoapps.org) and the [Gore research group](https://blogs.cornell.edu/gorelab/) for valuable feedback and productive discussions.
+
+# Funding
+
+This work has been supported by USDA NIFA AFRI EWD Predoctoral Fellowship 2019‐67011‐29606 (J.H.) and NSF BREAD IOS‐1543958 (M.A.G.). Work at IITA was supported by the UK's Foreign, Commonwealth & Development Office (FCDO) and the Bill & Melinda Gates Foundation (Grant INV-007637). This study is made possible by the support of the American People provided to the Feed the Future Innovation Lab for Crop Improvement through the United States Agency for International Development (USAID). The contents are the sole responsibility of the authors and do not necessarily reflect the views of USAID or the United States Government. Program activities are funded by the United States Agency for International Development (USAID) under Cooperative Agreement No. 7200AA‐19LE‐00005.
+

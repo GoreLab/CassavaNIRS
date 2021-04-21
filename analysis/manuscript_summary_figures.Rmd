@@ -1,0 +1,147 @@
+---
+title: "NIRS Manuscript Summary Statistics and Figures"
+author: "Jenna Hershberger"
+date: "2021-02-08"
+output: workflowr::wflow_html
+editor_options:
+  chunk_output_type: console
+---
+
+## Summary statistics and figures
+
+### Load packages
+```{r load_packages}
+library(tidyverse)
+library(reshape2)
+library(wesanderson)
+library(readxl)
+library(agricolae)
+library(waves)
+library(ggpubr)
+
+iwanthue <- c("#c84d4c","#c77c3f","#d19f32","#647e3a","#61b858","#4db5a4","#6585cc","#975fc7","#c575a1","#cf4391")
+
+namekey <- read.csv("data/TrialNameKey.csv") %>% rename(Trial = Abbreviated.Trial.Name) 
+```
+
+```{r load_data}
+plots.aggregated <- read.csv("output/full_filtered_plots.csv", stringsAsFactors = F) %>% 
+  left_join(namekey) %>% 
+  dplyr::select(-studyName) %>% 
+  rename(studyName = Trial) %>% 
+  distinct()
+```
+
+#Figures and tables
+##DMC summary table
+```{r dmc_summary_table}
+dmc.summary <- plots.aggregated %>% 
+  drop_na(dry.matter.content.percentage.CO_334.0000092) %>% 
+  mutate(plot.id = paste(studyName, plotNumber, sep = "_")) %>% 
+  drop_na(dry.matter.content.percentage.CO_334.0000092, X740) %>% 
+  group_by(programName, studyName, studyDesign) %>% 
+  summarize(`# Accessions` = n_distinct(germplasmName), 
+            `# Plots` = n_distinct(observationUnitName),             
+            `Mean DMC` = mean(dry.matter.content.percentage.CO_334.0000092), 
+            `Maximum DMC` = max(dry.matter.content.percentage.CO_334.0000092), 
+            `Minimum DMC` = min(dry.matter.content.percentage.CO_334.0000092), 
+            `DMC Standard Deviation` = sd(dry.matter.content.percentage.CO_334.0000092)) %>% 
+  rename(`Program Name` = programName, 
+         `Trial Name` = studyName,
+         `Trial Design` = studyDesign)
+
+plots.aggregated %>% 
+  group_by(studyName) %>% 
+  dplyr::select(studyName, germplasmName) %>% 
+  distinct() %>% 
+  summarize(n())
+
+write.csv(dmc.summary, "output/Table2_DMC_statistics.csv", row.names = F)
+```
+
+## Genotype overlap between trials
+```{r}
+germ.by.trial <- plots.aggregated %>%
+  drop_na(dry.matter.content.percentage.CO_334.0000092, X740) %>%
+  dplyr::select(studyName, germplasmName) %>%
+  distinct() %>% 
+  mutate(present = 1) %>% 
+  pivot_wider(names_from = studyName, values_from = present) %>% 
+  mutate_at(vars(unique(plots.aggregated$studyName)), ~ifelse(is.na(.), 0, 1)) %>% 
+  rowwise() %>% 
+  mutate(sum_representation = sum(c(`A-17IB`, `B-17IB`, `C-18IB`, `D-18IB`, `E-18IB`, 
+                                    `F-19IB`, `G-19IB`, `H-19IB`, `I-19IK`, `J-19IK`))) %>% 
+  dplyr::select(germplasmName, sum_representation, everything())
+
+germ.by.trial %>% arrange(-sum_representation) %>% View()
+
+counts.v3  <- plots.aggregated %>%
+  dplyr::select(studyName, germplasmName) %>%
+  distinct() %>%
+  dplyr::count(., studyName, germplasmName) %>%
+  spread(studyName, n, fill = 0) %>%
+  select(-germplasmName) %>%
+  as.matrix() %>%
+  crossprod()
+
+#write.csv(germ.by.trial, "output/germplasm_by_trial_inclusion_nicknames.csv", row.names = F)
+write.csv(counts.v3, "output/S1_overlapping_accession_counts.csv", row.names = T)
+```
+
+```{r base_for_cv_scheme_diagram}
+germplasm.order <- plots.aggregated %>% dplyr::select(studyName, germplasmName) %>% 
+  arrange(studyName, germplasmName) %>% dplyr::select(-studyName) %>% distinct() %>% rownames_to_column()
+
+cv.base.plot <- plots.aggregated %>% 
+  full_join(germplasm.order) %>% 
+  dplyr::select(studyName, germplasmName, rowname) %>% 
+  distinct() %>% 
+  arrange(studyName, rowname) %>% 
+  mutate(germplasmName = factor(germplasmName, levels = germplasm.order$germplasmName)) %>% 
+  ggplot(., aes(x = germplasmName, y = reorder(studyName, desc(studyName)))) + geom_tile() + 
+  labs(x = "Clone", y = "Trial") +
+  theme_bw() +
+  theme(axis.text.x = element_blank(), axis.ticks.x = element_blank(),
+        panel.grid.major.x = element_blank(),
+        panel.grid.major.y = element_blank(),)
+cv.base.plot
+
+cv.base.multi <- ggarrange(cv.base.plot, cv.base.plot, cv.base.plot, cv.base.plot,
+                          labels = c("A", "B", "C", "D"),
+                          nrow = 2, ncol = 2,
+                          widths = c(1, 1))
+cv.base.multi
+
+ggsave(plot = cv.base.multi, "output/cv_base.png", device = "png", units = "in", width = 10, height = 6)
+```
+
+## DMC violin and boxplots figure
+```{r violin_plot}
+# tukey https://stackoverflow.com/questions/48625620/adding-tukeys-significance-letters-to-boxplot
+dmc.lm <- lm(dry.matter.content.percentage.CO_334.0000092~studyName, data = plots.aggregated)
+dmc.aov <- aov(dmc.lm)
+dmc.tuk <- TukeyHSD(dmc.aov)
+dmc.tuk.agricolae <- HSD.test(dmc.aov, trt="studyName", unbalanced = TRUE)
+tuk.means <- dmc.tuk.agricolae$means %>% rownames_to_column("studyName")
+tuk.groups <- dmc.tuk.agricolae$groups %>% rownames_to_column("studyName") %>%  
+  left_join(tuk.means, by = "studyName") %>% 
+  dplyr::select(studyName, groups, Max) 
+
+
+dmc.violin.boxplot <- plots.aggregated %>% left_join(tuk.groups, by = "studyName") %>% 
+  full_join(namekey) %>% 
+  ggplot(aes(x = Trial, y = dry.matter.content.percentage.CO_334.0000092, 
+             fill = Trial
+             )) + geom_violin()+
+  geom_boxplot(position = "identity", width = .2) + 
+  theme_bw() + 
+  geom_text(aes(label = groups, y = (.6 + Max)), vjust = 0) +
+  labs(x = element_blank(), #title = "Plot mean dry matter content by trial", 
+       y = "Dry matter content (%)") +
+  scale_fill_manual(values = iwanthue, name = "Trial") +
+  theme(legend.position = "none")
+dmc.violin.boxplot
+                                                                                                            
+ggsave(dmc.violin.boxplot, filename = "output/Figure2_DMC_distributions.png",  
+       bg = "transparent", height = 5, width = 7)
+```

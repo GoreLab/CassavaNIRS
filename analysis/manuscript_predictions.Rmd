@@ -1,0 +1,213 @@
+---
+title: "NIRS Manuscript Predictions"
+author: "Jenna Hershberger"
+date: "2/06/2020"
+output: workflowr::wflow_html
+editor_options:
+  chunk_output_type: console
+---
+jmh579@cornell.edu  
+
+### Load packages
+```{r load_packages}
+library(tidyverse)
+library(reshape2)
+library(readxl)
+library(agricolae)
+library(waves)
+
+iwanthue <- c("#c84d4c","#c77c3f","#d19f32","#647e3a","#61b858","#4db5a4","#6585cc","#975fc7","#c575a1","#cf4391")
+namekey <- read.csv("data/TrialNameKey.csv") %>% rename(Trial = Abbreviated.Trial.Name) 
+```
+
+```{r load_data}
+plots.aggregated <- read.csv("output/full_filtered_plots.csv", stringsAsFactors = F) %>% 
+  left_join(namekey) %>% 
+  dplyr::select(-studyName) %>% rename(studyName = Trial) %>% 
+  distinct()
+```
+
+## Within-trial predictions
+Run on server using "server_within_trial_predictions_PLSR_RF_SVM.R"
+```{r}
+waves_results_flat_PLSR <- read.csv("output/within_trial_waves_PLSR.csv") %>% 
+  left_join(namekey) %>% 
+  dplyr::select(-studyName) %>% 
+  rename(studyName = Trial) %>% 
+  dplyr::select(studyName, everything())
+
+getmode <- function(vector.input){
+    as.matrix(vector.input)
+    unique.vector <- unique(vector.input)
+    return(unique.vector[which.max(tabulate(match(vector.input,unique.vector)))])
+    }
+
+tempPLSR <- waves_results_flat_PLSR %>% 
+  filter(Pretreatment == "Raw_data") %>% 
+  dplyr::select(-Iteration, -Pretreatment)  
+PLSR.means.df <- tempPLSR %>% group_by(studyName) %>% summarize_all(., .funs = mean)
+PLSR.means.df[,-1] <- as.matrix(round(PLSR.means.df[,-1],3))
+PLSR.sd.df <- tempPLSR %>% group_by(studyName) %>% summarize_all(., sd, na.rm = TRUE)
+PLSR.sd.df[,-1] <- as.matrix(round(PLSR.sd.df[,-1],3))
+PLSR.mode.df <- tempPLSR %>% group_by(studyName) %>% summarize_all(., getmode)
+PLSR.mode.df[,-1] <- as.matrix(round(PLSR.mode.df[,-1],3))
+  
+summarized_results_flat_PLSR <- cbind(PLSR.means.df[, 1:11], PLSR.mode.df[,12])
+summarized_results_flat_PLSR[-1] <- Map(function(x, y) sprintf("%0.2f (%0.2f)", x, y),  
+            summarized_results_flat_PLSR[-1], PLSR.sd.df[-1])
+write.csv(summarized_results_flat_PLSR, "output/Table3_performance_summary.csv", row.names = F)
+
+waves_results_flat_PLSR$Pretreatment <- factor(waves_results_flat_PLSR$Pretreatment, 
+                                          levels = unique(waves_results_flat_PLSR$Pretreatment))
+
+
+raw_prediction_boxplots <- waves_results_flat_PLSR %>% 
+  filter(Pretreatment == "Raw_data") %>% 
+  #mutate(programName = c(rep("IITA", 160), rep("Embrapa", 70))) %>% 
+  ggplot(aes(x = studyName, y = R2p, fill =studyName)) +
+  geom_boxplot() +
+  lims(y = c(0,1))+
+  theme_bw() + #facet_wrap(~studyName) +
+  labs(#title = "Within-trial DMC prediction with PLSR using waves", 
+       #subtitle = "No pretreatment",
+       x = element_blank(),
+       y = expression(R[p]^{2})) +
+  scale_fill_manual(values = iwanthue, name = "Trial") +
+  theme(#axis.text.x = element_text(angle = 90, hjust = 1), 
+        legend.position = "none")
+  # theme(axis.text.x = element_blank(), axis.ticks.x = element_blank(), 
+  #       legend.position = "bottom")
+raw_prediction_boxplots
+
+ggsave(raw_prediction_boxplots, filename = "output/Figure4_within_predictions.png",  
+       bg = "transparent", height=6, width=7)
+
+
+waves_results_flat_PLSR <- read.csv("output/within_trial_waves_PLSR.csv") %>% 
+  mutate(Algorithm = "PLSR") %>%   
+  left_join(namekey) %>% 
+  dplyr::select(-studyName) %>% 
+  rename(studyName = Trial) %>% 
+  dplyr::select(Algorithm, studyName, Pretreatment:R2sp)
+waves_results_flat_RF <- read.csv("output/within_trial_waves_RF.csv") %>% 
+  mutate(Algorithm = "RF") %>% 
+  left_join(namekey) %>% 
+  dplyr::select(-studyName) %>% 
+  rename(studyName = Trial) %>% 
+  dplyr::select(Algorithm, studyName, Pretreatment:R2sp)
+waves_results_flat_SVM <- read.csv("output/within_trial_waves_SVM.csv") %>% 
+  mutate(Algorithm = "SVM") %>% 
+  left_join(namekey) %>% 
+  dplyr::select(-studyName) %>% 
+  rename(studyName = Trial) %>% 
+  dplyr::select(Algorithm, studyName, Pretreatment:R2sp)
+
+waves_results_flat <- rbind(waves_results_flat_PLSR, waves_results_flat_RF, waves_results_flat_SVM) 
+
+waves_results_flat$Pretreatment <- factor(waves_results_flat$Pretreatment, 
+                                          levels = unique(waves_results_flat$Pretreatment))
+
+prediction_boxplots_all <- waves_results_flat %>% 
+  mutate(Pretreatment = recode(Pretreatment, "Raw_data" = "Raw data")) %>% 
+  ggplot(aes(x = Pretreatment, y = R2p, fill = Algorithm)) +
+  geom_boxplot() +
+  theme_bw() + facet_wrap(~studyName) +
+  labs(#title = "Within-trial DMC prediction using waves", 
+       #subtitle = "Algorithm comparison with 50 iterations of waves pipeline",
+       x = "Spectral preprocessing technique",
+       y = expression(R[p]^{2})) +
+  scale_fill_manual(values=wes_palette(name="Zissou1", 3, type = "continuous"), 
+                    name = "Algorithm") +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1),
+        legend.position = "bottom")
+prediction_boxplots_all
+
+ggsave(prediction_boxplots_all, filename = "output/FigureS2_within_trial_prediction_all.png",  
+       bg = "transparent", height = 7, width = 9)
+write.csv(waves_results_flat, "output/TableS2_within_trial_predictions.csv", row.names = F)
+```
+
+## Random forest variable importance
+```{r RFimportance}
+rfimportance <- read.csv("output/within_trial_waves_RF_importance.csv") %>% 
+  left_join(namekey) %>% 
+  dplyr::select(-studyName) %>% 
+  rename(studyName = Trial) %>% 
+  drop_na(studyName) %>% 
+  dplyr::select(studyName, everything())
+
+rfimportance_plot_points <- rfimportance %>% 
+  pivot_longer(., cols = starts_with("X"), names_to = "Wavelength", values_to = "RF.importance") %>% 
+  group_by(studyName, Wavelength) %>% 
+  summarize(RF.importance.mean = mean(RF.importance)) %>% 
+  ggplot(aes(x = parse_number(as.character(Wavelength)), y = RF.importance.mean, 
+             color = studyName)) + 
+  labs(#title = "Random forest variable importance", 
+       #subtitle = "Trial mean of 10 iterations of model development", 
+       x = "Wavelength (nm)", 
+       y = "Trial mean variable importance") +
+  geom_point(alpha = 0.7) + 
+  scale_color_manual(values = iwanthue, name = "Trial") +
+  lims(x = c(740 ,1070)) + 
+  theme_bw()
+rfimportance_plot_points
+
+ggsave(rfimportance_plot_points, filename = "output/Figure6_RF_Importance.png",  
+        bg = "transparent",height=5, width=7)
+
+```
+
+## CV schemes
+```{r}
+cv_results <- read.csv("output/cv_results.csv") %>% 
+  left_join(namekey) %>% 
+  dplyr::select(-studyName) %>% 
+  rename(studyName = Trial) %>% 
+  drop_na(studyName) 
+cv_pal <- c("#8975ca","#71a659","#cb5683","#c5783e")
+
+# study-level means
+cv_results %>% group_by(studyName, CV.scheme) %>% summarize_all(mean)  %>% arrange(CV.scheme, R2p) %>% print(n = "inf")
+# scheme means across all studies
+cv_results %>% group_by(CV.scheme) %>% summarize_all(mean) %>% print(n = "inf")
+
+cv.predictions.plot <- cv_results %>%
+  group_by(studyName, CV.scheme) %>% 
+  summarize(meanR2p = mean(R2p),
+            sdR2p = sd(R2p)) %>% 
+  mutate(R2pupper = meanR2p + sdR2p,
+         R2plower = meanR2p - sdR2p) %>% 
+  ggplot(aes(x = CV.scheme, 
+             y = meanR2p,
+             fill = CV.scheme)) +
+  geom_col() +
+  geom_errorbar(aes(ymin = R2plower, ymax = R2pupper, width = .3)) + 
+  facet_wrap(~studyName) +
+  labs(#title = "Dry matter content prediction with partial least squares regression",
+       #subtitle = "Models trained according to cross-validation schemes",
+       y = expression(R[p]^{2}),
+       x = "Cross-validation scheme") +
+  scale_y_continuous(limits = c(0,1)) + 
+  theme_bw() + 
+  scale_fill_manual(values = cv_pal, name = "Trial") +
+  theme(legend.position = "none")
+cv.predictions.plot
+
+ggsave(plot = cv.predictions.plot, filename = "output/Figure7_CV_predictions.png",
+       units = "in", height = 5, width = 7)
+cv_results %>% 
+  rename(Trial = studyName) %>% 
+  write.csv(., "output/TableS4_cv_results.csv", row.names = F)
+```
+
+
+
+
+
+
+
+
+
+
+
+

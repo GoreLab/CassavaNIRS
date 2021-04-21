@@ -9,3 +9,11 @@ analysis/*png
 analysis/*html
 analysis/*_cache
 analysis/site_libs
+data/Spectra
+data/C*
+data/Trial*
+data/*html
+data/*txt
+output/*png
+output/*csv
+Hershberger*
