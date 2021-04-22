@@ -12,6 +12,7 @@ analysis/site_libs
 data/Spectra
 data/C*
 data/Trial*
+data/raw*
 data/*html
 data/*txt
 output/*png
