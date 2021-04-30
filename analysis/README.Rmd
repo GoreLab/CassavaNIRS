@@ -1,12 +1,3 @@
----
-title: "Analysis overview"
-output:
-  workflowr::wflow_html:
-    toc: false
-editor_options:
-  chunk_output_type: console
----
-
 Some of the analyses in this manuscript were more efficiently run from the command line on a server with more memory than is common on desktop/laptop machines. The scripts for these analyses are located in the `code/` sub-folder of this repository with names starting with "server". Results from these analyses are used in subsequent **html** / **Rmd** files to generate plots and tables for the manuscript.
 
 1. [Filter and aggregate](filter_aggregate.html): Remove outliers and prepare raw data for model training
