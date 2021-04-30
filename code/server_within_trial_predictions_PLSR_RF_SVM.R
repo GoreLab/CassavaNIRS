@@ -99,7 +99,7 @@ write.csv(waves_results_flat_SVM, "output/within_trial_waves_SVM.csv", row.names
 print("--------------- Finished with SVM ----------------")
 
 
-algorithms <- c("PLSR", "RF", "SVM")
-times <- c(time_PLSR, time_RF, time_SVM)
-time.df <- data.frame(algorithms, times)
+algorithm <- c("PLSR", "RF", "SVM")
+times.df <- rbind(time_PLSR, time_RF, time_SVM) %>%
+  cbind(algorithm) %>% as.data.frame() %>% dplyr::select(algorithm, everything())
 write.csv(time.df, "output/algorithm_runtimes.csv", rownames = F)

@@ -9,10 +9,11 @@
 <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
-<meta name="author" content="Jenna Hershberger, Edwige Gaby Nkouaya Mbanjo, Prasad Peteti, Ismail Y. Rabbi, and Michael A. Gore" />
+<meta name="author" content="Jenna Hershberger" />
 
+<meta name="date" content="2021-02-12" />
 
-<title>Reproducible documentation: Hershberger et al. Low-cost, handheld near-infrared spectroscopy for root dry matter content prediction in cassava</title>
+<title>manuscript_subsampling</title>
 
 <script src="site_libs/header-attrs-2.6/header-attrs.js"></script>
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
@@ -21,6 +22,9 @@
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
@@ -272,6 +276,69 @@ $(document).ready(function () {
 
 
 
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
 
 </head>
 
@@ -279,6 +346,16 @@ $(document).ready(function () {
 
 
 <div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
 
 
 
@@ -334,8 +411,9 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">Reproducible documentation: Hershberger et al. Low-cost, handheld near-infrared spectroscopy for root dry matter content prediction in cassava</h1>
-<h4 class="author">Jenna Hershberger, Edwige Gaby Nkouaya Mbanjo, Prasad Peteti, Ismail Y. Rabbi, and Michael A. Gore</h4>
+<h1 class="title toc-ignore">manuscript_subsampling</h1>
+<h4 class="author">Jenna Hershberger</h4>
+<h4 class="date">2021-02-12</h4>
 
 </div>
 
@@ -363,7 +441,7 @@ $(document).ready(function () {
 <strong>Last updated:</strong> 2021-04-30
 </p>
 <p>
-<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 1 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 1
+<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 1
 </p>
 <p>
 <strong>Knit directory:</strong> <code>CassavaNIRS/</code> <span class="glyphicon glyphicon-question-sign" aria-hidden="true" title="This is the local directory in which the code in this file was executed."> </span>
@@ -384,7 +462,67 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 </div>
 <div id="strongRMarkdownfilestronguncommittedchanges" class="panel-collapse collapse">
 <div class="panel-body">
-<p>The R Markdown file has staged changes. To know which version of the R Markdown file created these results, you’ll want to first commit it to the Git repo. If you’re still working on the analysis, you can ignore this warning. When you’re finished, you can run <code>wflow_publish</code> to commit the R Markdown file and build the HTML.</p>
+<p>The R Markdown file has unstaged changes. To know which version of the R Markdown file created these results, you’ll want to first commit it to the Git repo. If you’re still working on the analysis, you can ignore this warning. When you’re finished, you can run <code>wflow_publish</code> to commit the R Markdown file and build the HTML.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongEnvironmentstrongempty"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Environment:</strong> empty </a>
+</p>
+</div>
+<div id="strongEnvironmentstrongempty" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! The global environment was empty. Objects defined in the global environment can affect the analysis in your R Markdown file in unknown ways. For reproduciblity it’s best to always run the code in an empty environment.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSeedstrongcodesetseed20210419code"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Seed:</strong> <code>set.seed(20210419)</code> </a>
+</p>
+</div>
+<div id="strongSeedstrongcodesetseed20210419code" class="panel-collapse collapse">
+<div class="panel-body">
+<p>The command <code>set.seed(20210419)</code> was run prior to running the code in the R Markdown file. Setting a seed ensures that any results that rely on randomness, e.g. subsampling or permutations, are reproducible.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSessioninformationstrongrecorded"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Session information:</strong> recorded </a>
+</p>
+</div>
+<div id="strongSessioninformationstrongrecorded" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Recording the operating system, R version, and package versions is critical for reproducibility.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongCachestrongnone"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Cache:</strong> none </a>
+</p>
+</div>
+<div id="strongCachestrongnone" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Nice! There were no cached chunks for this analysis, so you can be confident that you successfully produced the results during this run.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongFilepathsstrongrelative"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>File paths:</strong> relative </a>
+</p>
+</div>
+<div id="strongFilepathsstrongrelative" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Using relative paths to the files within your workflowr project makes it easier to run your code on other machines.</p>
 </div>
 </div>
 </div>
@@ -446,18 +584,19 @@ Ignored files:
     Ignored:    output/within_trial_waves_RF_importance.csv
     Ignored:    output/within_trial_waves_SVM.csv
 
-Staged changes:
-    Modified:   .gitignore
-    New:        analysis/README.Rmd
+Unstaged changes:
     Modified:   analysis/_site.yml
     Modified:   analysis/filter_aggregate.Rmd
-    Modified:   analysis/index.Rmd
     Modified:   analysis/manuscript_predictions.Rmd
     Modified:   analysis/manuscript_subsampling.Rmd
+
+Staged changes:
+    Modified:   .gitignore
+    Modified:   analysis/filter_aggregate.Rmd
+    Modified:   analysis/manuscript_predictions.Rmd
     Modified:   analysis/manuscript_summary_figures.Rmd
     Modified:   code/server_CV.R
     Modified:   code/server_within_trial_predictions_PLSR_RF_SVM.R
-    Modified:   data/README.md
 
 </code></pre>
 <p>
@@ -472,7 +611,7 @@ Note that any generated files, e.g. HTML, png, CSS, etc., are not included in t
 <div id="versions" class="tab-pane fade">
 
 <p>
-These are the previous versions of the repository in which changes were made to the R Markdown (<code>analysis/index.Rmd</code>) and HTML (<code>docs/index.html</code>) files. If you’ve configured a remote Git repository (see <code>?wflow_git_remote</code>), click on the hyperlinks in the table below to view the files as they were in that past version.
+These are the previous versions of the repository in which changes were made to the R Markdown (<code>analysis/manuscript_subsampling.Rmd</code>) and HTML (<code>docs/manuscript_subsampling.html</code>) files. If you’ve configured a remote Git repository (see <code>?wflow_git_remote</code>), click on the hyperlinks in the table below to view the files as they were in that past version.
 </p>
 <div class="table-responsive">
 <table class="table table-condensed table-hover">
@@ -501,24 +640,7 @@ Message
 Rmd
 </td>
 <td>
-<a href="https://github.com/GoreLab/CassavaNIRS/blob/759b46335a2aa7de3571608bf311efb8c1b95103/analysis/index.Rmd" target="_blank">759b463</a>
-</td>
-<td>
-Jenna Hershberger
-</td>
-<td>
-2021-04-22
-</td>
-<td>
-Update curation code
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/GoreLab/CassavaNIRS/blob/8f143af12e5bfc4f8d325c05e4c86725e1623215/analysis/index.Rmd" target="_blank">8f143af</a>
+<a href="https://github.com/GoreLab/CassavaNIRS/blob/8f143af12e5bfc4f8d325c05e4c86725e1623215/analysis/manuscript_subsampling.Rmd" target="_blank">8f143af</a>
 </td>
 <td>
 Jenna Hershberger
@@ -528,40 +650,6 @@ Jenna Hershberger
 </td>
 <td>
 Add content
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/GoreLab/CassavaNIRS/8f143af12e5bfc4f8d325c05e4c86725e1623215/docs/index.html" target="_blank">8f143af</a>
-</td>
-<td>
-Jenna Hershberger
-</td>
-<td>
-2021-04-21
-</td>
-<td>
-Add content
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/GoreLab/CassavaNIRS/blob/fecea09c764fd8639e2dd5781298e851e4a14d50/analysis/index.Rmd" target="_blank">fecea09</a>
-</td>
-<td>
-Jenna Hershberger
-</td>
-<td>
-2021-04-19
-</td>
-<td>
-Start workflowr project.
 </td>
 </tr>
 </tbody>
@@ -571,33 +659,136 @@ Start workflowr project.
 </div>
 </div>
 </div>
-<div id="preprint" class="section level1">
-<h1>PREPRINT</h1>
-<p>This repository documents all analyses, summary, tables, and figures associated with the following PREPRINT: <a href="">Low-cost, handheld near-infrared spectroscopy for root dry matter content prediction in cassava</a></p>
+<div id="introduction" class="section level2">
+<h2>Introduction</h2>
+<p>Prior to this script, run server_subsampling_generalized.R and server_subsample_plsr.R. Then convert the output Rds to a df.</p>
+<pre class="r"><code>library(tidyverse)</code></pre>
+<pre><code>── Attaching packages ─────────────────────────────────────── tidyverse 1.3.0 ──</code></pre>
+<pre><code>✓ ggplot2 3.3.3     ✓ purrr   0.3.4
+✓ tibble  3.1.1     ✓ dplyr   1.0.5
+✓ tidyr   1.1.2     ✓ stringr 1.4.0
+✓ readr   1.4.0     ✓ forcats 0.5.0</code></pre>
+<pre><code>── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+x dplyr::filter() masks stats::filter()
+x dplyr::lag()    masks stats::lag()</code></pre>
+<pre class="r"><code>library(ggpubr)
+library(magrittr)</code></pre>
+<pre><code>
+Attaching package: &#39;magrittr&#39;</code></pre>
+<pre><code>The following object is masked from &#39;package:purrr&#39;:
+
+    set_names</code></pre>
+<pre><code>The following object is masked from &#39;package:tidyr&#39;:
+
+    extract</code></pre>
+<pre class="r"><code>iwanthue &lt;- c(&quot;#c84d4c&quot;,&quot;#c77c3f&quot;,&quot;#d19f32&quot;,&quot;#647e3a&quot;,&quot;#61b858&quot;,&quot;#4db5a4&quot;,
+              &quot;#6585cc&quot;,&quot;#975fc7&quot;,&quot;#c575a1&quot;,&quot;#cf4391&quot;)
+namekey &lt;- read.csv(&quot;data/TrialNameKey.csv&quot;) %&gt;% 
+  rename(Trial = Abbreviated.Trial.Name) </code></pre>
+<pre class="r"><code>subsamp_input &lt;- read.csv(&quot;output/subsampling_prediction_results_2021.csv&quot;) %&gt;%
+  full_join(namekey) %&gt;% 
+    mutate(`Subsample type` = case_when(
+        str_detect(studyName, &quot;19.&quot;) ~ &quot;Homogenized sample&quot;,
+        !str_detect(studyName, &quot;19.&quot;) &amp; str_detect(studyName, &quot;UYT&quot;) ~ &quot;Homogenized sample&quot;,
+        !str_detect(studyName, &quot;19.&quot;) &amp; !str_detect(studyName, &quot;UYT&quot;) ~ &quot;Roots&quot;),
+      num_samp_fct = as.factor(number_samples)) </code></pre>
+<pre><code>Joining, by = &quot;studyName&quot;</code></pre>
+<pre class="r"><code>subsamp_input %&gt;% 
+  group_by(studyName) %&gt;% 
+  summarize(max(number_samples))</code></pre>
+<pre><code># A tibble: 10 x 2
+   studyName                       `max(number_samples)`
+   &lt;fct&gt;                                           &lt;int&gt;
+ 1 17.CASS.PYT.49.setA.IB                              6
+ 2 17.GS.C3.PYT.80.IB                                  6
+ 3 18.CASS.PYT.52.IB                                   6
+ 4 18.GS.C2.setA.UYT.36.IB                             2
+ 5 18.GS.C2.setB.UYT.36.IB                             2
+ 6 19.CASS.PYT.52.IK                                   6
+ 7 19.CMSSurveyVarieties.AYT.33.IB                     6
+ 8 19.GS.C2.UYT.36.setA.IB                            10
+ 9 19.GS.C2.UYT.36.setB.IB                            10
+10 19.GS.C4B.PYT.500.IK                                6</code></pre>
+<pre class="r"><code>subsample.df &lt;- subsamp_input %&gt;%
+  filter(`Subsample type` == &quot;Homogenized sample&quot;) %&gt;%
+  drop_na() %&gt;%
+  mutate(num_samp_fct = fct_reorder(num_samp_fct, number_samples)) 
+
+subsample_plot &lt;- subsample.df %&gt;%
+  ggplot(aes(x = num_samp_fct, y = R2p, fill = Trial)) +
+  geom_boxplot() + facet_grid(cols = vars(Trial)) + theme_bw() +
+  scale_fill_manual(values = iwanthue[c(4:10)], name = &quot;Trial&quot;) +
+  coord_cartesian(ylim = c(0, 1)) + 
+  labs(fill = &quot;Trial&quot;, x = &quot;Number of samples&quot;, y = expression(&quot;R&quot;[&quot;p&quot;]^2)) + 
+  theme(legend.position = &quot;none&quot;) 
+subsample_plot</code></pre>
+<p><img src="figure/manuscript_subsampling.Rmd/unnamed-chunk-3-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>root_plot &lt;- subsamp_input %&gt;%
+  filter(`Subsample type` == &quot;Roots&quot;) %&gt;%
+  drop_na() %&gt;%
+  mutate(num_samp_fct = fct_reorder(num_samp_fct, number_samples)) %&gt;%
+  ggplot(aes(x = num_samp_fct, y = R2p, fill = Trial)) +
+  geom_boxplot() + facet_grid(cols = vars(Trial)) + theme_bw() +
+  scale_fill_manual(values = iwanthue[c(1:3)], name = &quot;Trial&quot;) +
+  coord_cartesian(ylim = c(0, 1)) + 
+  labs(fill = &quot;Trial&quot;, x = &quot;Number of roots&quot;, y = expression(&quot;R&quot;[&quot;p&quot;]^2))+
+  theme(legend.position = &quot;none&quot;)
+root_plot</code></pre>
+<p><img src="figure/manuscript_subsampling.Rmd/unnamed-chunk-3-2.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>split.fig &lt;- ggarrange(root_plot, subsample_plot,
+                          labels = c(&quot;A&quot;, &quot;B&quot;),
+                          nrow = 2,
+                          widths = c(0.6, 1))
+split.fig</code></pre>
+<p><img src="figure/manuscript_subsampling.Rmd/unnamed-chunk-3-3.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>ggsave(plot = split.fig, filename = &quot;output/Figure5_Subsamples.png&quot;,
+       units = &quot;in&quot;, height = 9, width = 12)</code></pre>
+<br>
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
+<span class="glyphicon glyphicon-wrench" aria-hidden="true"></span> Session information
+</button>
+</p>
+<div id="workflowr-sessioninfo" class="collapse">
+<pre class="r"><code>sessionInfo()</code></pre>
+<pre><code>R version 3.5.2 (2018-12-20)
+Platform: x86_64-apple-darwin18.2.0 (64-bit)
+Running under: macOS Mojave 10.14.6
+
+Matrix products: default
+BLAS/LAPACK: /usr/local/Cellar/openblas/0.3.6_1/lib/libopenblasp-r0.3.6.dylib
+
+locale:
+[1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
+
+attached base packages:
+[1] stats     graphics  grDevices utils     datasets  methods   base     
+
+other attached packages:
+ [1] magrittr_2.0.1  ggpubr_0.4.0    forcats_0.5.0   stringr_1.4.0  
+ [5] dplyr_1.0.5     purrr_0.3.4     readr_1.4.0     tidyr_1.1.2    
+ [9] tibble_3.1.1    ggplot2_3.3.3   tidyverse_1.3.0 workflowr_1.6.2
+
+loaded via a namespace (and not attached):
+ [1] httr_1.4.2        jsonlite_1.7.2    carData_3.0-4     modelr_0.1.8     
+ [5] assertthat_0.2.1  cellranger_1.1.0  yaml_2.2.1        pillar_1.6.0     
+ [9] backports_1.2.1   glue_1.4.2        digest_0.6.27     promises_1.1.1   
+[13] ggsignif_0.6.0    rvest_0.3.6       colorspace_2.0-0  cowplot_1.1.1    
+[17] htmltools_0.5.1   httpuv_1.5.5      pkgconfig_2.0.3   broom_0.7.3      
+[21] haven_2.3.1       scales_1.1.1      whisker_0.4       openxlsx_4.2.3   
+[25] later_1.1.0.1     rio_0.5.16        git2r_0.28.0      generics_0.1.0   
+[29] farver_2.1.0      car_3.0-10        ellipsis_0.3.1    withr_2.4.2      
+[33] cli_2.4.0         crayon_1.4.1      readxl_1.3.1      evaluate_0.14    
+[37] fs_1.5.0          fansi_0.4.2       rstatix_0.6.0     xml2_1.3.2       
+[41] foreign_0.8-72    tools_3.5.2       data.table_1.13.6 hms_1.0.0        
+[45] lifecycle_1.0.0   munsell_0.5.0     reprex_0.3.0      zip_2.1.1        
+[49] compiler_3.5.2    rlang_0.4.10      grid_3.5.2        rstudioapi_0.13  
+[53] labeling_0.4.2    rmarkdown_2.6     gtable_0.3.0      abind_1.4-5      
+[57] DBI_1.1.1         curl_4.3          R6_2.5.0          lubridate_1.7.9.2
+[61] knitr_1.29        utf8_1.2.1        rprojroot_2.0.2   stringi_1.5.3    
+[65] Rcpp_1.0.6        vctrs_0.3.7       dbplyr_2.0.0      tidyselect_1.1.0 
+[69] xfun_0.20        </code></pre>
 </div>
-<div id="abstract" class="section level1">
-<h1>Abstract</h1>
-<p>Over 800 million people across the tropics rely on cassava as a major source of calories. While the root dry matter content (RDMC) of this starchy root crop is important for both producers and consumers, characterization of RDMC by traditional methods is time-consuming and laborious for breeding programs. Alternate phenotyping methods have been proposed but lack the accuracy, cost, or speed ultimately needed for cassava breeding programs. For this reason, we investigated the use of a low-cost, handheld NIR spectrometer for field-based RDMC prediction in cassava. Oven-dried measurements of RDMC were paired with 21,044 scans of roots of 376 diverse clones from 10 field trials in Nigeria and grouped into training and test sets based on cross-validation schemes relevant to plant breeding programs. Mean partial least squares regression model performance ranged from R<sup>2</sup><sub>p</sub> = 0.62 - 0.89 for within-trial predictions, which is within the range achieved with laboratory-grade spectrometers in previous studies. Relative to other factors, model performance was highly impacted by the inclusion of samples from the same environment in both the training and test sets. Random forest variable importance analysis of root spectra revealed increased importance in a region previously identified as predictive of water content in plants (~950 - 990 nm). With appropriate model calibration, the tested spectrometer will allow for field-based collection of spectral data with a smartphone for accurate RDMC prediction and potentially other quality traits, a step that could be easily integrated into existing harvesting workflows of cassava breeding programs.</p>
-</div>
-<div id="data-availability-and-reproducibility" class="section level1">
-<h1>Data availability and reproducibility</h1>
-<p>The R package <strong>workflowr</strong> was used to document this study reproducibly.</p>
-<p>Much of the supporting data and output from the analyses documented here are too large for GitHub.</p>
-<p>The raw data for this repository is stored on <a href="https://datacommons.cyverse.org/browse/iplant/home/shared/GoreLab/dataFromPubs/Hershberger_CassavaNIRS_2021/">Cyverse</a>. Download this folder and add the contents to the /data folder in this repository to run the analysis code. When running the code, follow the order listed below.</p>
-</div>
-<div id="analysis-overview" class="section level1">
-<h1>Analysis overview</h1>
-<p>Some of the analyses in this manuscript were more efficiently run from the command line on a server with more memory than is common on desktop/laptop machines. The scripts for these analyses are located in the <code>code/</code> sub-folder of this repository with names starting with “server”. Results from these analyses are used in subsequent html / Rmd files to generate figures and tables for the manuscript.</p>
-<ol style="list-style-type: decimal">
-<li><a href="filter_aggregate.html">Filter and aggregate</a>: Remove outliers and prepare raw data for model training</li>
-<li><a href="manuscript_summary_figures.html">Summary figures</a>: Generate overview figures and tables</li>
-<li><code>code/server_within_trial_predictions_PLSR_RF_SVM.R</code>: Command line script that performs within-trial predictions with plot mean scans</li>
-<li><code>code/server_within_trial_predictions_RF_var_importance.R</code>: Command line script that calculates within-trial random forest variable importance</li>
-<li><code>code/run_subsampling.sh</code>: Command line shell script that calls <code>code/server_subsampling_generalized.R</code> to subsamples sets of scans within each plot and then performs within-trial predictions on those sets with <code>code/server_subsample_plsr.R</code>. Utilizes functions from <code>code/subsampling_functions.R</code>.</li>
-<li><code>code/server_CV.R</code>: Command line R script that performs predictions according to four cross-validation schemes relevant to plant breeding</li>
-<li><a href="manuscript_predictions.html">Predictions</a>: Generate figures from output of within-trial and cross-validation scheme prediction scripts</li>
-<li><a href="manuscript_subsampling.html">Subsampling</a>: Generate figures from output of subsampling scripts</li>
-</ol>
 </div>
 
 
@@ -616,6 +807,8 @@ footer is added to webpages before the MathJax javascript. -->
 
 
 
+</div>
+</div>
 
 </div>
 
@@ -648,6 +841,32 @@ $(document).ready(function () {
 
 <!-- code folding -->
 
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
 
 <!-- dynamically load mathjax for compatibility with self-contained -->
 <script>

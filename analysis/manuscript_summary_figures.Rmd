@@ -60,7 +60,7 @@ write.csv(dmc.summary, "output/Table2_DMC_statistics.csv", row.names = F)
 ```
 
 ## Genotype overlap between trials
-```{r}
+```{r genotype_overlap}
 germ.by.trial <- plots.aggregated %>%
   drop_na(dry.matter.content.percentage.CO_334.0000092, X740) %>%
   dplyr::select(studyName, germplasmName) %>%
@@ -72,8 +72,6 @@ germ.by.trial <- plots.aggregated %>%
   mutate(sum_representation = sum(c(`A-17IB`, `B-17IB`, `C-18IB`, `D-18IB`, `E-18IB`, 
                                     `F-19IB`, `G-19IB`, `H-19IB`, `I-19IK`, `J-19IK`))) %>% 
   dplyr::select(germplasmName, sum_representation, everything())
-
-germ.by.trial %>% arrange(-sum_representation) %>% View()
 
 counts.v3  <- plots.aggregated %>%
   dplyr::select(studyName, germplasmName) %>%
@@ -129,14 +127,13 @@ tuk.groups <- dmc.tuk.agricolae$groups %>% rownames_to_column("studyName") %>%
 
 
 dmc.violin.boxplot <- plots.aggregated %>% left_join(tuk.groups, by = "studyName") %>% 
-  full_join(namekey) %>% 
-  ggplot(aes(x = Trial, y = dry.matter.content.percentage.CO_334.0000092, 
-             fill = Trial
+  ggplot(aes(x = studyName, y = dry.matter.content.percentage.CO_334.0000092, 
+             fill = studyName
              )) + geom_violin()+
   geom_boxplot(position = "identity", width = .2) + 
   theme_bw() + 
   geom_text(aes(label = groups, y = (.6 + Max)), vjust = 0) +
-  labs(x = element_blank(), #title = "Plot mean dry matter content by trial", 
+  labs(x = "Trial", #title = "Plot mean dry matter content by trial", 
        y = "Dry matter content (%)") +
   scale_fill_manual(values = iwanthue, name = "Trial") +
   theme(legend.position = "none")

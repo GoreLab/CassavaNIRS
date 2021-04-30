@@ -1,10 +1,11 @@
 ---
 title: "NIRS Manuscript Predictions"
+site: workflowr::wflow_site
 author: "Jenna Hershberger"
 date: "2/06/2020"
 output: workflowr::wflow_html
 editor_options:
-  chunk_output_type: console
+  chunk_output_type: inline
 ---
 jmh579@cornell.edu  
 
@@ -15,15 +16,19 @@ library(reshape2)
 library(readxl)
 library(agricolae)
 library(waves)
+library(wesanderson)
 
-iwanthue <- c("#c84d4c","#c77c3f","#d19f32","#647e3a","#61b858","#4db5a4","#6585cc","#975fc7","#c575a1","#cf4391")
+iwanthue <- c("#c84d4c","#c77c3f","#d19f32","#647e3a","#61b858","#4db5a4",
+              "#6585cc","#975fc7","#c575a1","#cf4391")
 namekey <- read.csv("data/TrialNameKey.csv") %>% rename(Trial = Abbreviated.Trial.Name) 
 ```
 
 ```{r load_data}
-plots.aggregated <- read.csv("output/full_filtered_plots.csv", stringsAsFactors = F) %>% 
+plots.aggregated <- read.csv("output/full_filtered_plots.csv", 
+                             stringsAsFactors = F) %>% 
   left_join(namekey) %>% 
-  dplyr::select(-studyName) %>% rename(studyName = Trial) %>% 
+  dplyr::select(-studyName) %>% 
+  rename(studyName = Trial) %>% 
   distinct()
 ```
 
@@ -45,20 +50,25 @@ getmode <- function(vector.input){
 tempPLSR <- waves_results_flat_PLSR %>% 
   filter(Pretreatment == "Raw_data") %>% 
   dplyr::select(-Iteration, -Pretreatment)  
-PLSR.means.df <- tempPLSR %>% group_by(studyName) %>% summarize_all(., .funs = mean)
+PLSR.means.df <- tempPLSR %>% group_by(studyName) %>% 
+  summarize_all(., .funs = mean)
 PLSR.means.df[,-1] <- as.matrix(round(PLSR.means.df[,-1],3))
-PLSR.sd.df <- tempPLSR %>% group_by(studyName) %>% summarize_all(., sd, na.rm = TRUE)
+PLSR.sd.df <- tempPLSR %>% group_by(studyName) %>% 
+  summarize_all(., sd, na.rm = TRUE)
 PLSR.sd.df[,-1] <- as.matrix(round(PLSR.sd.df[,-1],3))
-PLSR.mode.df <- tempPLSR %>% group_by(studyName) %>% summarize_all(., getmode)
+PLSR.mode.df <- tempPLSR %>% group_by(studyName) %>% 
+  summarize_all(., getmode)
 PLSR.mode.df[,-1] <- as.matrix(round(PLSR.mode.df[,-1],3))
   
 summarized_results_flat_PLSR <- cbind(PLSR.means.df[, 1:11], PLSR.mode.df[,12])
-summarized_results_flat_PLSR[-1] <- Map(function(x, y) sprintf("%0.2f (%0.2f)", x, y),  
+summarized_results_flat_PLSR[-1] <- Map(function(x, y) sprintf("%0.2f (%0.2f)", 
+                                                               x, y),  
             summarized_results_flat_PLSR[-1], PLSR.sd.df[-1])
-write.csv(summarized_results_flat_PLSR, "output/Table3_performance_summary.csv", row.names = F)
+write.csv(summarized_results_flat_PLSR, 
+          "output/Table3_performance_summary.csv", row.names = F)
 
 waves_results_flat_PLSR$Pretreatment <- factor(waves_results_flat_PLSR$Pretreatment, 
-                                          levels = unique(waves_results_flat_PLSR$Pretreatment))
+                                               levels = unique(waves_results_flat_PLSR$Pretreatment))
 
 
 raw_prediction_boxplots <- waves_results_flat_PLSR %>% 
@@ -199,15 +209,3 @@ cv_results %>%
   rename(Trial = studyName) %>% 
   write.csv(., "output/TableS4_cv_results.csv", row.names = F)
 ```
-
-
-
-
-
-
-
-
-
-
-
-

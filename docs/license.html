@@ -9,10 +9,9 @@
 <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
-<meta name="author" content="Jenna Hershberger, Edwige Gaby Nkouaya Mbanjo, Prasad Peteti, Ismail Y. Rabbi, and Michael A. Gore" />
 
 
-<title>Reproducible documentation: Hershberger et al. Low-cost, handheld near-infrared spectroscopy for root dry matter content prediction in cassava</title>
+<title>License</title>
 
 <script src="site_libs/header-attrs-2.6/header-attrs.js"></script>
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
@@ -24,8 +23,6 @@
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
-<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
-<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
 
 <link rel="icon" href="https://github.com/workflowr/workflowr-assets/raw/master/img/reproducible.png">
 <!-- Add a small amount of space between sections. -->
@@ -299,32 +296,14 @@ $(document).ready(function () {
   <a href="index.html">Home</a>
 </li>
 <li>
-  <a href="filter_aggregate.html">Filter and Aggregate</a>
-</li>
-<li>
-  <a href="manuscript_summary_figures.html">Summary Figures</a>
-</li>
-<li>
-  <a href="manuscript_predictions.html">Predictions</a>
-</li>
-<li>
-  <a href="manuscript_subsampling.html">Subsampling</a>
-</li>
-<li>
-  <a href="about.html">Acknowledgements and Funding</a>
+  <a href="about.html">About</a>
 </li>
 <li>
   <a href="license.html">License</a>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li>
-  <a href="https://github.com/GoreLab/CassavaNIRS">
-    <span class="fas fa-github"></span>
-     
-    Source code
-  </a>
-</li>
+        
       </ul>
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
@@ -334,15 +313,14 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">Reproducible documentation: Hershberger et al. Low-cost, handheld near-infrared spectroscopy for root dry matter content prediction in cassava</h1>
-<h4 class="author">Jenna Hershberger, Edwige Gaby Nkouaya Mbanjo, Prasad Peteti, Ismail Y. Rabbi, and Michael A. Gore</h4>
+<h1 class="title toc-ignore">License</h1>
 
 </div>
 
 
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
-<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span>
+<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
 </button>
 </p>
 <div id="workflowr-report" class="collapse">
@@ -351,7 +329,7 @@ $(document).ready(function () {
 <a data-toggle="tab" href="#summary">Summary</a>
 </li>
 <li>
-<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> </a>
+<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> </a>
 </li>
 <li>
 <a data-toggle="tab" href="#versions">Past versions</a>
@@ -363,7 +341,7 @@ $(document).ready(function () {
 <strong>Last updated:</strong> 2021-04-30
 </p>
 <p>
-<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 1 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 1
+<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 2 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
 </p>
 <p>
 <strong>Knit directory:</strong> <code>CassavaNIRS/</code> <span class="glyphicon glyphicon-question-sign" aria-hidden="true" title="This is the local directory in which the code in this file was executed."> </span>
@@ -379,12 +357,12 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguncommittedchanges"> <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> <strong>R Markdown file:</strong> uncommitted changes </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date </a>
 </p>
 </div>
-<div id="strongRMarkdownfilestronguncommittedchanges" class="panel-collapse collapse">
+<div id="strongRMarkdownfilestronguptodate" class="panel-collapse collapse">
 <div class="panel-body">
-<p>The R Markdown file has staged changes. To know which version of the R Markdown file created these results, you’ll want to first commit it to the Git repo. If you’re still working on the analysis, you can ignore this warning. When you’re finished, you can run <code>wflow_publish</code> to commit the R Markdown file and build the HTML.</p>
+<p>Great! Since the R Markdown file has been committed to the Git repository, you know the exact version of the code that produced these results.</p>
 </div>
 </div>
 </div>
@@ -423,24 +401,11 @@ Ignored files:
     Ignored:    data/raw_pheno.csv
     Ignored:    data/raw_scans.csv
     Ignored:    output/.DS_Store
-    Ignored:    output/Figure2_DMC_distributions.png
-    Ignored:    output/Figure4_within_predictions.png
-    Ignored:    output/Figure5_Subsamples.png
-    Ignored:    output/Figure6_RF_Importance.png
-    Ignored:    output/Figure7_CV_predictions.png
-    Ignored:    output/FigureS2_within_trial_prediction_all.png
-    Ignored:    output/S1_overlapping_accession_counts.csv
     Ignored:    output/S3_removed_scans.csv
-    Ignored:    output/Table2_DMC_statistics.csv
-    Ignored:    output/Table3_performance_summary.csv
-    Ignored:    output/TableS2_within_trial_predictions.csv
-    Ignored:    output/TableS4_cv_results.csv
-    Ignored:    output/cv_base.png
     Ignored:    output/cv_results.csv
     Ignored:    output/full_filtered_plots.csv
     Ignored:    output/full_filtered_subsamples.csv
     Ignored:    output/full_filtered_unaggregated.csv
-    Ignored:    output/subsampling_prediction_results_2021.csv
     Ignored:    output/within_trial_waves_PLSR.csv
     Ignored:    output/within_trial_waves_RF.csv
     Ignored:    output/within_trial_waves_RF_importance.csv
@@ -448,16 +413,9 @@ Ignored files:
 
 Staged changes:
     Modified:   .gitignore
-    New:        analysis/README.Rmd
-    Modified:   analysis/_site.yml
     Modified:   analysis/filter_aggregate.Rmd
-    Modified:   analysis/index.Rmd
-    Modified:   analysis/manuscript_predictions.Rmd
-    Modified:   analysis/manuscript_subsampling.Rmd
-    Modified:   analysis/manuscript_summary_figures.Rmd
     Modified:   code/server_CV.R
     Modified:   code/server_within_trial_predictions_PLSR_RF_SVM.R
-    Modified:   data/README.md
 
 </code></pre>
 <p>
@@ -472,7 +430,7 @@ Note that any generated files, e.g. HTML, png, CSS, etc., are not included in t
 <div id="versions" class="tab-pane fade">
 
 <p>
-These are the previous versions of the repository in which changes were made to the R Markdown (<code>analysis/index.Rmd</code>) and HTML (<code>docs/index.html</code>) files. If you’ve configured a remote Git repository (see <code>?wflow_git_remote</code>), click on the hyperlinks in the table below to view the files as they were in that past version.
+These are the previous versions of the repository in which changes were made to the R Markdown (<code>analysis/license.Rmd</code>) and HTML (<code>docs/license.html</code>) files. If you’ve configured a remote Git repository (see <code>?wflow_git_remote</code>), click on the hyperlinks in the table below to view the files as they were in that past version.
 </p>
 <div class="table-responsive">
 <table class="table table-condensed table-hover">
@@ -501,41 +459,7 @@ Message
 Rmd
 </td>
 <td>
-<a href="https://github.com/GoreLab/CassavaNIRS/blob/759b46335a2aa7de3571608bf311efb8c1b95103/analysis/index.Rmd" target="_blank">759b463</a>
-</td>
-<td>
-Jenna Hershberger
-</td>
-<td>
-2021-04-22
-</td>
-<td>
-Update curation code
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/GoreLab/CassavaNIRS/blob/8f143af12e5bfc4f8d325c05e4c86725e1623215/analysis/index.Rmd" target="_blank">8f143af</a>
-</td>
-<td>
-Jenna Hershberger
-</td>
-<td>
-2021-04-21
-</td>
-<td>
-Add content
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/GoreLab/CassavaNIRS/8f143af12e5bfc4f8d325c05e4c86725e1623215/docs/index.html" target="_blank">8f143af</a>
+<a href="https://github.com/GoreLab/CassavaNIRS/blob/8f143af12e5bfc4f8d325c05e4c86725e1623215/analysis/license.Rmd" target="_blank">8f143af</a>
 </td>
 <td>
 Jenna Hershberger
@@ -552,7 +476,7 @@ Add content
 Rmd
 </td>
 <td>
-<a href="https://github.com/GoreLab/CassavaNIRS/blob/fecea09c764fd8639e2dd5781298e851e4a14d50/analysis/index.Rmd" target="_blank">fecea09</a>
+<a href="https://github.com/GoreLab/CassavaNIRS/blob/fecea09c764fd8639e2dd5781298e851e4a14d50/analysis/license.Rmd" target="_blank">fecea09</a>
 </td>
 <td>
 Jenna Hershberger
@@ -571,34 +495,11 @@ Start workflowr project.
 </div>
 </div>
 </div>
-<div id="preprint" class="section level1">
-<h1>PREPRINT</h1>
-<p>This repository documents all analyses, summary, tables, and figures associated with the following PREPRINT: <a href="">Low-cost, handheld near-infrared spectroscopy for root dry matter content prediction in cassava</a></p>
-</div>
-<div id="abstract" class="section level1">
-<h1>Abstract</h1>
-<p>Over 800 million people across the tropics rely on cassava as a major source of calories. While the root dry matter content (RDMC) of this starchy root crop is important for both producers and consumers, characterization of RDMC by traditional methods is time-consuming and laborious for breeding programs. Alternate phenotyping methods have been proposed but lack the accuracy, cost, or speed ultimately needed for cassava breeding programs. For this reason, we investigated the use of a low-cost, handheld NIR spectrometer for field-based RDMC prediction in cassava. Oven-dried measurements of RDMC were paired with 21,044 scans of roots of 376 diverse clones from 10 field trials in Nigeria and grouped into training and test sets based on cross-validation schemes relevant to plant breeding programs. Mean partial least squares regression model performance ranged from R<sup>2</sup><sub>p</sub> = 0.62 - 0.89 for within-trial predictions, which is within the range achieved with laboratory-grade spectrometers in previous studies. Relative to other factors, model performance was highly impacted by the inclusion of samples from the same environment in both the training and test sets. Random forest variable importance analysis of root spectra revealed increased importance in a region previously identified as predictive of water content in plants (~950 - 990 nm). With appropriate model calibration, the tested spectrometer will allow for field-based collection of spectral data with a smartphone for accurate RDMC prediction and potentially other quality traits, a step that could be easily integrated into existing harvesting workflows of cassava breeding programs.</p>
-</div>
-<div id="data-availability-and-reproducibility" class="section level1">
-<h1>Data availability and reproducibility</h1>
-<p>The R package <strong>workflowr</strong> was used to document this study reproducibly.</p>
-<p>Much of the supporting data and output from the analyses documented here are too large for GitHub.</p>
-<p>The raw data for this repository is stored on <a href="https://datacommons.cyverse.org/browse/iplant/home/shared/GoreLab/dataFromPubs/Hershberger_CassavaNIRS_2021/">Cyverse</a>. Download this folder and add the contents to the /data folder in this repository to run the analysis code. When running the code, follow the order listed below.</p>
-</div>
-<div id="analysis-overview" class="section level1">
-<h1>Analysis overview</h1>
-<p>Some of the analyses in this manuscript were more efficiently run from the command line on a server with more memory than is common on desktop/laptop machines. The scripts for these analyses are located in the <code>code/</code> sub-folder of this repository with names starting with “server”. Results from these analyses are used in subsequent html / Rmd files to generate figures and tables for the manuscript.</p>
-<ol style="list-style-type: decimal">
-<li><a href="filter_aggregate.html">Filter and aggregate</a>: Remove outliers and prepare raw data for model training</li>
-<li><a href="manuscript_summary_figures.html">Summary figures</a>: Generate overview figures and tables</li>
-<li><code>code/server_within_trial_predictions_PLSR_RF_SVM.R</code>: Command line script that performs within-trial predictions with plot mean scans</li>
-<li><code>code/server_within_trial_predictions_RF_var_importance.R</code>: Command line script that calculates within-trial random forest variable importance</li>
-<li><code>code/run_subsampling.sh</code>: Command line shell script that calls <code>code/server_subsampling_generalized.R</code> to subsamples sets of scans within each plot and then performs within-trial predictions on those sets with <code>code/server_subsample_plsr.R</code>. Utilizes functions from <code>code/subsampling_functions.R</code>.</li>
-<li><code>code/server_CV.R</code>: Command line R script that performs predictions according to four cross-validation schemes relevant to plant breeding</li>
-<li><a href="manuscript_predictions.html">Predictions</a>: Generate figures from output of within-trial and cross-validation scheme prediction scripts</li>
-<li><a href="manuscript_subsampling.html">Subsampling</a>: Generate figures from output of subsampling scripts</li>
-</ol>
-</div>
+<p>MIT License</p>
+<p>Copyright (c) 2021 The Gore Lab</p>
+<p>Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the “Software”), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:</p>
+<p>The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.</p>
+<p>THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</p>
 
 
 <!-- Adjust MathJax settings so that all math formulae are shown using

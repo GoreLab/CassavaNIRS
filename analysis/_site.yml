@@ -5,10 +5,22 @@ navbar:
   left:
   - text: Home
     href: index.html
-  - text: About
+  - text: Filter and Aggregate
+    href: filter_aggregate.html
+  - text: Summary Figures
+    href: manuscript_summary_figures.html
+  - text: Predictions
+    href: manuscript_predictions.html
+  - text: Subsampling
+    href: manuscript_subsampling.html
+  - text: Acknowledgements and Funding
     href: about.html
   - text: License
     href: license.html
+  right:
+  - icon: fa-github
+    text: Source code
+    href: https://github.com/GoreLab/CassavaNIRS
 output:
   workflowr::wflow_html:
     toc: yes

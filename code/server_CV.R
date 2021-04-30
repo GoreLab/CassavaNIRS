@@ -14,7 +14,6 @@ library(caret)
 
 niterations <- 50
 plots.ready <- read.csv("output/full_filtered_plots.csv", stringsAsFactors = F) %>%
-  filter(!str_detect(studyName, "135")) %>%
   rename(reference = dry.matter.content.percentage.CO_334.0000092,
          unique.id = observationUnitName,
          genotype = germplasmName) %>%

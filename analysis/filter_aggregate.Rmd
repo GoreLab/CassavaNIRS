@@ -1,10 +1,11 @@
 ---
 title: "Filter, aggregate, and join datasets"
+site: workflowr::wflow_site
 author: "Jenna Hershberger"
 date: "2021-04-22"
 output: workflowr::wflow_html
 editor_options:
-  chunk_output_type: console
+  chunk_output_type: inline
 ---
 
 ```{r load}
@@ -17,18 +18,29 @@ scans_all <- read.csv("data/raw_scans.csv")
 ```
 
 ```{r set_new_column_names}
+colnames_to_keep <- c("studyYear", "programName", "studyName", "studyDesign", "plotWidth",
+                      "plotLength", "plantingDate", "harvestDate", "MAP", "locationName",
+                      "germplasmName", "observationLevel", "observationUnitName", 
+                      "replicate", "blockNumber", "plotNumber", "rowNumber", "colNumber", 
+                      "entryType", "sample.prep",
+                      "dry.matter.content.percentage.CO_334.0000092")
+
 joined_colnames <- c(colnames_to_keep, "rootNumber", "subsample", "scanTimestamp", 
                      "device_id", "comments", paste0("X", 740:1070))
 
 joined_colnames_no_subsample <- c(colnames_to_keep, "scanTimestamp", 
                      "device_id", "comments", paste0("X", 740:1070))
+
+scan_colnames_plots <- c("studyName", "plotNumber", "rootNumber", "subsample", 
+                         "scanTimestamp", "device_id", "comments")
 ```
 
 Filter scans based on Mahalanobis distance
 ```{r filter}
 scans_all$X740 <- as.numeric(scans_all$X740)
 scans_filtered <- scans_all %>% 
-  # have to remove columns with missing values before FilterSpectra() because of waves requirement
+  # have to remove columns with missing values before FilterSpectra() 
+  # because of waves requirement
   dplyr::select(rowname, starts_with("X")) %>% 
   FilterSpectra(filter = TRUE,
                 return.distances = FALSE, 
@@ -40,7 +52,8 @@ scans_filtered <- scans_all %>%
   distinct()
 
 scans_removed_df <- scans_all %>% 
-  # have to remove columns with missing values before FilterSpectra() because of waves requirement
+  # have to remove columns with missing values before FilterSpectra() 
+  # because of waves requirement
   dplyr::select(rowname, starts_with("X")) %>% 
   FilterSpectra(filter = FALSE,
                 return.distances = TRUE, 
@@ -62,12 +75,16 @@ scans_filtered_subsample <- scans_filtered %>%
   # AggregateSpectra() requires a column named "reference"
   mutate(reference = 1) %>%
   drop_na(subsample) %>% 
-  # have to remove columns with missing values before AggregateSpectra() because of waves requirement
+  # have to remove columns with missing values before AggregateSpectra() 
+  # because of waves requirement
   dplyr::select(studyName, plotNumber, subsample, reference, starts_with("X")) %>% 
   AggregateSpectra(grouping.colnames = c("studyName", "plotNumber", "subsample"),
-                   reference.value.colname = "reference", agg.function = "mean") %>%
+                   reference.value.colname = "reference", 
+                   agg.function = "mean") %>%
   dplyr::select(-reference) %>% 
-  left_join(x = ., y = scans_filtered[1:7], by = c("studyName", "plotNumber", "subsample")) %>% 
+  left_join(x = ., y = scans_filtered[1:7], by = c("studyName", 
+                                                   "plotNumber", 
+                                                   "subsample")) %>% 
   dplyr::select(all_of(scan_colnames_plots), starts_with("X")) %>% 
   distinct()
 ```
@@ -78,13 +95,16 @@ scans_filtered_plots <- scans_filtered %>%
   # AggregateSpectra() requires a column named "reference"
   mutate(reference = 1) %>%
   drop_na(plotNumber) %>% 
-  # have to remove columns with missing values before AggregateSpectra() because of waves requirement
+  # have to remove columns with missing values before AggregateSpectra() 
+  # because of waves requirement
   dplyr::select(studyName, plotNumber, reference, starts_with("X")) %>% 
   AggregateSpectra(grouping.colnames = c("studyName", "plotNumber"),
-                   reference.value.colname = "reference", agg.function = "mean") %>%
+                   reference.value.colname = "reference", 
+                   agg.function = "mean") %>%
   dplyr::select(-reference) %>% 
   # join only with the relevant metadata from scans_filtered (studyName, plotNumber, scanTimestamp, device_id, comments)
-  left_join(x = ., y = scans_filtered[c(1,2,5,6,7)], by = c("studyName", "plotNumber")) %>% 
+  left_join(x = ., y = scans_filtered[c(1,2,5,6,7)], 
+            by = c("studyName", "plotNumber")) %>% 
   dplyr::select(all_of(scan_colnames_plots[c(1,2,5,6,7)]), starts_with("X")) %>% 
   distinct()
 ```
@@ -94,7 +114,8 @@ scans_filtered_plots <- scans_filtered %>%
 full_filtered <- pheno %>% 
   full_join(scans_filtered, by = c("studyName", "plotNumber")) %>% 
   dplyr::select(all_of(joined_colnames)) %>% 
-  drop_na(dry.matter.content.percentage.CO_334.0000092, X740) %>%  # comment this line out to get counts of missingness
+  drop_na(dry.matter.content.percentage.CO_334.0000092, X740) %>%  
+  # comment out the line above to get counts of missingness
   distinct()
 
 full_subsamples <- pheno %>% 

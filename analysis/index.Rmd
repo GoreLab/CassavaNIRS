@@ -17,3 +17,24 @@ This repository documents all analyses, summary, tables, and figures associated 
 
 Over 800 million people across the tropics rely on cassava as a major source of calories. While the root dry matter content (RDMC) of this starchy root crop is important for both producers and consumers, characterization of RDMC by traditional methods is time-consuming and laborious for breeding programs. Alternate phenotyping methods have been proposed but lack the accuracy, cost, or speed ultimately needed for cassava breeding programs. For this reason, we investigated the use of a low-cost, handheld NIR spectrometer for field-based RDMC prediction in cassava. Oven-dried measurements of RDMC were paired with 21,044 scans of roots of 376 diverse clones from 10 field trials in Nigeria and grouped into training and test sets based on cross-validation schemes relevant to plant breeding programs. Mean partial least squares regression model performance ranged from R<sup>2</sup><sub>p</sub> = 0.62 - 0.89 for within-trial predictions, which is within the range achieved with laboratory-grade spectrometers in previous studies. Relative to other factors, model performance was highly impacted by the inclusion of samples from the same environment in both the training and test sets. Random forest variable importance analysis of root spectra revealed increased importance in a region previously identified as predictive of water content in plants (~950 - 990 nm). With appropriate model calibration, the tested spectrometer will allow for field-based collection of spectral data with a smartphone for accurate RDMC prediction and potentially other quality traits, a step that could be easily integrated into existing harvesting workflows of cassava breeding programs. 
 
+# Data availability and reproducibility
+
+The R package **workflowr** was used to document this study reproducibly.
+
+Much of the supporting data and output from the analyses documented here are too large for GitHub.
+
+The raw data for this repository is stored on [Cyverse](https://datacommons.cyverse.org/browse/iplant/home/shared/GoreLab/dataFromPubs/Hershberger_CassavaNIRS_2021/). Download this folder and add the contents to the /data folder in this repository to run the analysis code. When running the code, follow the order listed below.
+
+
+# Analysis overview
+
+Some of the analyses in this manuscript were more efficiently run from the command line on a server with more memory than is common on desktop/laptop machines. The scripts for these analyses are located in the `code/` sub-folder of this repository with names starting with "server". Results from these analyses are used in subsequent html / Rmd files to generate figures and tables for the manuscript.
+
+1. [Filter and aggregate](filter_aggregate.html): Remove outliers and prepare raw data for model training
+2. [Summary figures](manuscript_summary_figures.html): Generate overview figures and tables
+3. `code/server_within_trial_predictions_PLSR_RF_SVM.R`: Command line script that performs within-trial predictions with plot mean scans
+4. `code/server_within_trial_predictions_RF_var_importance.R`: Command line script that calculates within-trial random forest variable importance
+5. `code/run_subsampling.sh`: Command line shell script that calls `code/server_subsampling_generalized.R` to subsamples sets of scans within each plot and then performs within-trial predictions on those sets with `code/server_subsample_plsr.R`. Utilizes functions from `code/subsampling_functions.R`.
+6. `code/server_CV.R`: Command line R script that performs predictions according to four cross-validation schemes relevant to plant breeding
+7. [Predictions](manuscript_predictions.html): Generate figures from output of within-trial and cross-validation scheme prediction scripts
+8. [Subsampling](manuscript_subsampling.html): Generate figures from output of subsampling scripts
