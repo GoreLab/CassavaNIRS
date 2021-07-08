@@ -150,14 +150,17 @@ rfimportance_plot_points <- rfimportance %>%
   pivot_longer(., cols = starts_with("X"), names_to = "Wavelength", values_to = "RF.importance") %>% 
   group_by(studyName, Wavelength) %>% 
   summarize(RF.importance.mean = mean(RF.importance)) %>% 
-  ggplot(aes(x = parse_number(as.character(Wavelength)), y = RF.importance.mean, 
+  ggplot(aes(x = parse_number(as.character(Wavelength)), 
+             y = RF.importance.mean, 
+             shape = studyName,
              color = studyName)) + 
   labs(#title = "Random forest variable importance", 
        #subtitle = "Trial mean of 10 iterations of model development", 
        x = "Wavelength (nm)", 
        y = "Trial mean variable importance") +
-  geom_point(alpha = 0.7) + 
+  geom_point(alpha = 0.65) + 
   scale_color_manual(values = iwanthue, name = "Trial") +
+  scale_shape_manual(values = 1:10, name = "Trial") +
   lims(x = c(740 ,1070)) + 
   theme_bw()
 rfimportance_plot_points
