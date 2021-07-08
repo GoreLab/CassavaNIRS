@@ -14,4 +14,4 @@ The R package **workflowr** was used to document this study reproducibly.
 
 Much of the supporting data *and* output from the analyses documented here are too large for GitHub.
 
-The raw data for this repository is stored on [Cyverse](https://datacommons.cyverse.org/browse/iplant/home/shared/GoreLab/dataFromPubs/Hershberger_CassavaNIRS_2021/). Download this folder and add the contents to the /data folder in this repository to run the analysis code. When running the code, follow the order listed in the [analysis README](/analysis/README.md).
+The raw data for this repository is stored on [Cyverse](https://datacommons.cyverse.org/browse/iplant/home/shared/GoreLab/dataFromPubs/Hershberger_CassavaNIRS_2021/). Download this folder and add the contents to the /data folder in this repository to run the analysis code. When running the code, follow the order listed in the [analysis README](https://github.com/GoreLab/CassavaNIRS/blob/main/analysis/README.md).
