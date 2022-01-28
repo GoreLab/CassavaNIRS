@@ -20,7 +20,7 @@ library(wesanderson)
 
 iwanthue <- c("#c84d4c","#c77c3f","#d19f32","#647e3a","#61b858","#4db5a4",
               "#6585cc","#975fc7","#c575a1","#cf4391")
-namekey <- read.csv("data/TrialNameKey.csv") %>% rename(Trial = Abbreviated.Trial.Name) 
+namekey <- read.csv("/data/TrialNameKey.csv") %>% rename(Trial = Abbreviated.Trial.Name) 
 ```
 
 ```{r load_data}
@@ -132,42 +132,32 @@ prediction_boxplots_all <- waves_results_flat %>%
         legend.position = "bottom")
 prediction_boxplots_all
 
-ggsave(prediction_boxplots_all, filename = "output/FigureS2_within_trial_prediction_all.png",  
+ggsave(prediction_boxplots_all, filename = "output/FigureS3_within_trial_prediction_all.png",  
        bg = "transparent", height = 7, width = 9)
 write.csv(waves_results_flat, "output/TableS2_within_trial_predictions.csv", row.names = F)
 ```
 
-## Random forest variable importance
-```{r RFimportance}
-rfimportance <- read.csv("output/within_trial_waves_RF_importance.csv") %>% 
-  left_join(namekey) %>% 
-  dplyr::select(-studyName) %>% 
-  rename(studyName = Trial) %>% 
-  drop_na(studyName) %>% 
-  dplyr::select(studyName, everything())
-
-rfimportance_plot_points <- rfimportance %>% 
-  pivot_longer(., cols = starts_with("X"), names_to = "Wavelength", values_to = "RF.importance") %>% 
-  group_by(studyName, Wavelength) %>% 
-  summarize(RF.importance.mean = mean(RF.importance)) %>% 
-  ggplot(aes(x = parse_number(as.character(Wavelength)), 
-             y = RF.importance.mean, 
-             shape = studyName,
-             color = studyName)) + 
-  labs(#title = "Random forest variable importance", 
-       #subtitle = "Trial mean of 10 iterations of model development", 
-       x = "Wavelength (nm)", 
-       y = "Trial mean variable importance") +
-  geom_point(alpha = 0.65) + 
-  scale_color_manual(values = iwanthue, name = "Trial") +
-  scale_shape_manual(values = 1:10, name = "Trial") +
-  lims(x = c(740 ,1070)) + 
-  theme_bw()
-rfimportance_plot_points
-
-ggsave(rfimportance_plot_points, filename = "output/Figure6_RF_Importance.png",  
-        bg = "transparent",height=5, width=7)
-
+## Plot mean spectra
+```{r plot_mean_spectra}
+mean.spectrum.plot <- plots.aggregated %>%
+  left_join(namekey) %>%
+  pretreat_spectra(pretreatment = 1) %>%
+  dplyr::select(observationUnitName, Trial, dry.matter.content.percentage.CO_334.0000092,
+                tidyselect::starts_with("X")) %>%
+  tidyr::gather(key = "wl", value = "s.value", tidyselect::starts_with("X")) %>%
+  dplyr::mutate(wl = as.numeric(stringr::str_extract(.data$wl, "\\-*\\d+\\.*\\d*"))) %>%
+  ggplot2::ggplot(data = ., aes(x = .data$wl, y = .data$s.value,
+                                group = .data$observationUnitName,
+                                color = .data$dry.matter.content.percentage.CO_334.0000092)) +
+  geom_line() +
+  theme_bw() +
+  labs(#title = "Plot mean spectra", 
+       x = "Wavelength", y = "Spectral Value", 
+       color = "Root dry\nmatter\ncontent") + 
+  facet_wrap(~Trial)
+mean.spectrum.plot
+ggsave(mean.spectrum.plot, filename = "../output/FigureS2_plot_mean_spectra.png",  
+       bg = "transparent", height = 7, width = 9)
 ```
 
 ## CV schemes
