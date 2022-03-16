@@ -13,7 +13,6 @@ editor_options:
 ```{r load_packages}
 library(tidyverse)
 library(reshape2)
-library(wesanderson)
 library(readxl)
 library(agricolae)
 library(waves)
@@ -133,12 +132,12 @@ dmc.violin.boxplot <- plots.aggregated %>% left_join(tuk.groups, by = "studyName
   geom_boxplot(position = "identity", width = .2) + 
   theme_bw() + 
   geom_text(aes(label = groups, y = (.6 + Max)), vjust = 0) +
-  labs(x = "Trial", #title = "Plot mean dry matter content by trial", 
-       y = "Dry matter content (%)") +
+  labs(x = "Trial", #title = "Plot mean root dry matter content by trial", 
+       y = "Root dry matter content (%)") +
   scale_fill_manual(values = iwanthue, name = "Trial") +
   theme(legend.position = "none")
 dmc.violin.boxplot
                                                                                                             
-ggsave(dmc.violin.boxplot, filename = "output/Figure2_DMC_distributions.png",  
+ggsave(dmc.violin.boxplot, filename = "output/Figure2_RDMC_distributions.png",  
        bg = "transparent", height = 5, width = 7)
 ```
